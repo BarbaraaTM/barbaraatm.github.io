@@ -72,3 +72,5 @@ Ahora nos vamos al servidor y escribimos:
     $ tail /var/log/syslog
 ```
 Y deberíamos ver un mensaje parecido a este:
+
+![log-server](img/log.png)
