@@ -1,0 +1,5 @@
+# Logs centralizados
+
+## Introducción
+
+## Desarrollo
