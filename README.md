@@ -1,3 +1,3 @@
 # Hola
 
-[Práctica 1](barbaraatm.github.io/practica1.md)
+[Práctica 1](./practica1.md)
