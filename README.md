@@ -1,7 +1,7 @@
 # Índice
 
-*[Práctica 1 - Logs centralizados](./practica1.md)
+* [Práctica 1 - Logs centralizados](./practica1.md)
 
-*[Práctica 2 -]()
+* [Práctica 2 - Política de contraseñas]()
 
-*[Práctica 3 - Permisos / Reglas ACL]()
+* [Práctica 3 - Permisos / Reglas ACL]()
