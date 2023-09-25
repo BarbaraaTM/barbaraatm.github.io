@@ -1,3 +1,3 @@
-# Hola
+# Índice
 
-[Práctica 1](./practica1.md)
+[Práctica 1 - Logs centralizados](./practica1.md)
