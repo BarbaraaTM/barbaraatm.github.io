@@ -24,19 +24,23 @@ $ sudo apt install libpam-cracklib
 
     Entramos en el archivo de configuración para poder editarlo:
     ```bash
-    $ sudo nano /etc/pam.d/common-password
+    $ sudo nano /etc/security/pwquality.conf
     ```
 - Paso 3
 
-    Una vez que estamos dentro del editor, debemos localizar una línea similar a la siguiente:
-    ```
-    password    requisite                pam_cracklib.so retry=3 minlen=8 difok=3
-    ```
-- Paso 4
-
     Debemos elegir la política de contraseñas a configurar. Yo he escogido la siguiente:
     ```
-    password    requisite                pam_cracklib.so retry=3 minlen=6 difok=2 ucredit=-1 dcredit=-1 ocredit=-1
+    difok = 2 
+    ...
+    minlen = 6
+    ...
+    dcredit =- 1
+    ...
+    ucredit = -1
+    ...
+    ocredit = -1
+    ...
+    retry = 3
     ```
     Con esta política habremos configurado que:
     - Tendrá 3 intentos antes de que el sistema devuelva un error.
@@ -47,3 +51,7 @@ $ sudo apt install libpam-cracklib
     Una vez que hayamos configurado el fichero de texto, lo guardamos y ya podremos comprobarlo.
 
 ## Comprobación
+
+- Paso 1
+
+   
