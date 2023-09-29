@@ -55,3 +55,15 @@ Existiran los siguientes grupos y usuarios:
      ```bash
     $ setfacl g:students:r,g:teachers:rw
     ```
+- Paso 3
+
+    A la carpeta *eso1*, vamos a darle permisos al grupo *teachers* de lectura y escritura, y al grupo *eso1* de lectura.
+     ```bash
+    $ setfacl g:eso1:r,g:teachers:rw
+    ```
+- Paso 4
+
+    A la carpeta *eso2*, vamos a darle permisos al grupo *teachers* de lectura y escritura, y al grupo *eso2* de lectura.
+     ```bash
+    $ setfacl g:eso2:r,g:teachers:rw
+    ```
