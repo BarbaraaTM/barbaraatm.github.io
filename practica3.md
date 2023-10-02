@@ -47,23 +47,23 @@ Existiran los siguientes grupos y usuarios:
 
     A la carpeta *teachers*, vamos a darle permisos al grupo *teachers* de lectura, y al usuario *t1* de lectura y escritura.
     ```bash
-    $ setfacl u:t1:rw,g:teachers:r
+    $ setfacl -Rdm u:t1:rw,g:teachers:r
     ```
 - Paso 2
 
     A la carpeta *students*, vamos a darle permisos al grupo *teachers* de lectura y escritura, y al grupo *students* de lectura.
      ```bash
-    $ setfacl g:students:r,g:teachers:rw
+    $ setfacl -Rdm g:students:r,g:teachers:rw
     ```
 - Paso 3
 
     A la carpeta *eso1*, vamos a darle permisos al grupo *teachers* de lectura y escritura, y al grupo *eso1* de lectura.
      ```bash
-    $ setfacl g:eso1:r,g:teachers:rw
+    $ setfacl -Rdm g:eso1:r,g:teachers:rw
     ```
 - Paso 4
 
     A la carpeta *eso2*, vamos a darle permisos al grupo *teachers* de lectura y escritura, y al grupo *eso2* de lectura.
      ```bash
-    $ setfacl g:eso2:r,g:teachers:rw
+    $ setfacl -Rdm g:eso2:r,g:teachers:rw
     ```
