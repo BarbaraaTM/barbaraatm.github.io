@@ -1,0 +1,2 @@
+# Redundancia es discos (RAID)
+
