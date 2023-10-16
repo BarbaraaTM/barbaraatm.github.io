@@ -43,3 +43,9 @@ md5sum -c checksum.txt
 ## Fallo disco
 
 mdadm /dev/md126 --fail /dev/sdb --remove /dev/sdb
+
+## LVM
+
+pvcreate /dev/md125
+
+vgcreate SeguridadAD /dev/md125
