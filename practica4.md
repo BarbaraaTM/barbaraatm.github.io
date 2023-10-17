@@ -30,7 +30,7 @@ Vamos a crear un RAID 10, para ello usaremos 4 discos del mismo tamaño.
   Guardamos en el archivo /etc/mdadm/mdadm.conf la información del arreglo:
    ```bash
     $ mdadm --detail --scan > /etc/mdadm/mdadm.conf
-    ``
+    ```
 
 - Paso 4
 
@@ -44,17 +44,35 @@ Vamos a crear un RAID 10, para ello usaremos 4 discos del mismo tamaño.
 
 ## Discos de repuesto
 
+Para realizar esta parte de la práctica, deberás añadir otros dos discos del mismo tamaño que los anteriores.
+
+*Al reiniciar los nombres de los antiguos discos han cambiado a los siguientes:*
+
 RAID 1 (sdb y sdc) = 126
 RAID 1 (sdd y sde) = 127
 RAID 0 = 125
 
-mdadm --add /dev/md126 /dev/sdf
+---
 
-mdadm --add /dev/md127 /dev/sdg
+- Paso 1
+
+  Añadimos uno a cada RAID 1:
+  ```bash
+    $ mdadm --add /dev/md126 /dev/sdf
+    $ mdadm --add /dev/md127 /dev/sdg
+    ```
 
 ## Prueba fichero modificado
 
-dd if=/dev/urandom of=prueba.txt bs=500MB count=1
+- Paso 1
+
+  Creamos un archivo random:
+  ```bash
+    $ dd if=/dev/urandom of=prueba.txt bs=500MB count=1
+    ```
+- Paso 2
+
+  
 
 md5sum prueba.txt > checksum.txt
 
