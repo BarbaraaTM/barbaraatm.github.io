@@ -49,3 +49,21 @@ mdadm /dev/md126 --fail /dev/sdb --remove /dev/sdb
 pvcreate /dev/md125
 
 vgcreate SeguridadAD /dev/md125
+
+lvcreate -l 70%FREE -n P1 SeguridadAD
+
+lvcreate -l 30%FREE -n P2 SeguridadAD
+
+mkfs.ext4 /dev/SeguridadAD/P1
+
+mkfs.ext4 /dev/SeguridadAD/P2
+
+mkdir -p /datos001
+
+mkdir -p /datos002
+
+mount /dev/SeguridadAD/P1 /datos001
+
+mount /dev/SeguridadAD/P2 /datos002
+
+
