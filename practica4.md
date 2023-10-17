@@ -1,9 +1,22 @@
 # Redundancia es discos (RAID)
 
-fdisk
+## Introducción
 
-## RAID 10
+Vamos a crear un RAID 10, para ello usaremos 4 discos del mismo tamaño.
+    ```bash
+    $ fdisk
+    ```
 
+## Creación del RAID 10
+
+- Paso 1
+
+  Creamos dos RAID 1 con dos discos cada uno
+    ```bash
+    $ mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc
+    $ mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdd /dev/sde
+    ```
+  
 mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc
 
 mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdd /dev/sde
