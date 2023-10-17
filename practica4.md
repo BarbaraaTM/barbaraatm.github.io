@@ -3,6 +3,7 @@
 ## Introducción
 
 Vamos a crear un RAID 10, para ello usaremos 4 discos del mismo tamaño.
+
     ```bash
     $ fdisk
     ```
@@ -11,27 +12,35 @@ Vamos a crear un RAID 10, para ello usaremos 4 discos del mismo tamaño.
 
 - Paso 1
 
-  Creamos dos RAID 1 con dos discos cada uno
+  Creamos dos RAID 1 con dos discos cada uno:
     ```bash
     $ mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc
     $ mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdd /dev/sde
     ```
-  
-mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/sdb /dev/sdc
 
-mdadm --create /dev/md1 --level=1 --raid-devices=2 /dev/sdd /dev/sde
+- Paso 2
 
-mdadm --create /dev/md2 --level=0 --raid-devices=2 /dev/md0 /dev/md1
+  Creamos un RAID 0 con los dos RAID 1 que hemos creado antes:
+   ```bash
+    $ mdadm --create /dev/md2 --level=0 --raid-devices=2 /dev/md0 /dev/md1
+    ```
 
-mdadm --detail --scan > /etc/mdadm/mdadm.conf
+- Paso 3
 
-mkfs.ext4 /dev/md0
+  Guardamos en el archivo /etc/mdadm/mdadm.conf la información del arreglo:
+   ```bash
+    $ mdadm --detail --scan > /etc/mdadm/mdadm.conf
+    ``
 
-mkdir /datos00
+- Paso 4
 
-mount /dev/md0 /datos00
-
-df -h
+  Configuramos el RAID0 para poder usarlo como unidad de almacenamiento:
+  ```bash
+    $ mkfs.ext4 /dev/md0
+    $ mkdir /datos00
+    $ mount /dev/md0 /datos00
+    $ df -h
+    ```
 
 ## Discos de repuesto
 
