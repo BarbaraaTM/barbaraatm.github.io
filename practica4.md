@@ -62,6 +62,25 @@ RAID 0 = 125
     $ mdadm --add /dev/md127 /dev/sdg
     ```
 
+## Fallo disco
+
+Vamos a similar el fallo de uno de los discos de cada RAID 1 para comprobar que funciona el sistema de discos de repuesto.
+
+- Paso 1
+
+  Simulamos el error del disco:
+   ```bash
+    $ mdadm /dev/md126 --fail /dev/sdb --remove /dev/sdb
+    $ mdadm /dev/md127 --fail /dev/sde --remove /dev/sde
+    ```
+- Paso 2
+
+  Comprobamos que se haya cambiado al disco de repuesto:
+   ```bash
+    $ mdadm --detail /dev/md126
+    $ mdadm --detail /dev/md127
+    ```
+
 ## Prueba fichero modificado
 
 - Paso 1
@@ -72,17 +91,22 @@ RAID 0 = 125
     ```
 - Paso 2
 
-  
+  Metemos el hash md5 del fichero en otro fichero:
+  ```bash
+    $ md5sum prueba.txt > checksum.txt
+    ```
+- Paso 3
 
-md5sum prueba.txt > checksum.txt
+  Modificamos el archivo de prueba:
+  ```bash
+    $ echo "Modificado" >> prueba.txt
+    ```
+- Paso 4
 
-echo "Modificado" >> prueba.txt
-
-md5sum -c checksum.txt
-
-## Fallo disco
-
-mdadm /dev/md126 --fail /dev/sdb --remove /dev/sdb
+  Comparamos ambos archivos para comprobar que el hash ha cambiado:
+   ```bash
+    $ md5sum -c checksum.txt
+    ```
 
 ## LVM
 
