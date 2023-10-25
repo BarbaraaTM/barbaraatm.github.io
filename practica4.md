@@ -3,10 +3,9 @@
 ## Introducción
 
 Vamos a crear un RAID 10, para ello usaremos 4 discos del mismo tamaño.
-
-    ```bash
+```bash
     $ fdisk
-    ```
+ ```
 
 ## Creación del RAID 10
 
