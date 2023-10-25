@@ -110,24 +110,43 @@ Vamos a similar el fallo de uno de los discos de cada RAID 1 para comprobar que 
 
 ## LVM
 
-pvcreate /dev/md125
+- Paso 1
 
-vgcreate SeguridadAD /dev/md125
+  Convertimos el RAID 10 en un volúmen físico:
+  ```bash
+    $ pvcreate /dev/md125
+    ```
+- Paso 2
 
-lvcreate -l 70%FREE -n P1 SeguridadAD
+  Creamos un grupo de volúmenes y añadimos el RAID 10:
+  ```bash
+    $ vgcreate SeguridadAD /dev/md125
+    ```
+- Paso 3
 
-lvcreate -l 30%FREE -n P2 SeguridadAD
+  Creamos dos volúmenes lógicos:
+  ```bash
+    $ lvcreate -l 70%FREE -n P1 SeguridadAD
+    $ lvcreate -l 30%FREE -n P2 SeguridadAD
+    ```
+- Paso 4
 
-mkfs.ext4 /dev/SeguridadAD/P1
+  Formateamos los volúmenes lógicos para que tengan el sistema de archivos Ext4:
+   ```bash
+    $ mkfs.ext4 /dev/SeguridadAD/P1
+    $ mkfs.ext4 /dev/SeguridadAD/P2
+    ```
+- Paso 5
 
-mkfs.ext4 /dev/SeguridadAD/P2
+  Creamos puntos de montaje:
+  ```bash
+    $ mkdir -p /datos001
+    $ mkdir -p /datos002
+    ```
+- Paso 6
 
-mkdir -p /datos001
-
-mkdir -p /datos002
-
-mount /dev/SeguridadAD/P1 /datos001
-
-mount /dev/SeguridadAD/P2 /datos002
-
-
+  Montamos los volúmenes lógicos en los directorios que acabamos de crear:
+  ```bash
+    $ mount /dev/SeguridadAD/P1 /datos001
+    $ mount /dev/SeguridadAD/P2 /datos002
+    ```
