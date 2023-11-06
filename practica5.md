@@ -14,7 +14,7 @@ sudo apt update
   Instalamos el conjunto de secuencias de comandos easy-rsa:
   ```bash
     $ sudo apt install easy-rsa
-    ```
+  ```
   
 - Paso 2
 
@@ -26,14 +26,14 @@ sudo apt update
 - Paso 3
 
   Creamos enlaces simbólicos que apunten a los archivos del paquete easy-rsa:
-  ``bash
+  ```bash
     $ sudo ln -s /usr/share/easy-rsa/* ~/easy-rsa/
     ```
 
 - Paso 4
 
   Restringimos el acceso para que solo el propietario pueda acceder a él:
-  ``bash
+  ```bash
     $ sudo chmod 700 /home/barbara/easy-rsa
     ```
 - Paso 5
@@ -47,7 +47,7 @@ sudo apt update
 - Paso 6
 
   Creamos y editamos el fichero vars con los datos de la organización:
-  ``bash
+  ```bash
     $ sudo nano ~/easy-rsa/vars
       ~/easy-rsa/vars
       set_var EASYRSA_REQ_COUNTRY    "España"
