@@ -99,6 +99,65 @@ sudo apt update
 
 - Paso 3
 
+  Pegamos el certificado en el fichero /tmp/ca.crt:
+  ```bash
+    $ nano /tmp/ca.crt
+    ```
+
+## Crear CSR - Peticion
+
+- Paso 1
+
+  Ejecutamos los siguientes comandos para asegurar que tenemos instalado el servicio openssl en el sistema:
+  ```bash
+    $ sudo apt update
+    $ sudo apt install openssl
+    ```
+
+- Paso 2
+
+  Creamos un directorio y generamos dentro una clave privada:
+  ```bash
+    $ sudo mkdir ~/practice-csr
+    $ sudo cd ~/practice-csr
+    $ sudo openssl genrsa -out barbara-server.key
+    ```
+
+- Paso 3
+
+  Creamos la petición:
+  ```bash
+    $ openssl req -new -key barbara-server.key -out barbara-server.req
+    ```
+
+## Firmado por CA - Firmar petición
+
+- Paso 1
+
+  Nos movemos a la carpeta del CA e importamos la CSR:
+   ```bash
+    $ cd ~/easy-rsa
+    $ ./easyrsa import-req barbara-server.req barbara-server
+    ```
+
+- Paso 2
+
+  Firmamos la CSR:
+   ```bash
+    $ ./easyrsa sign-req server barbara-server
+    ```
+
+## Configurar Apache
+
+- Paso 1
+
+  Modificamos el archivo /etc/apache2/sites-available/default-ssl.conf:
+  ```bash
+    $   sudo nano /etc/apache2/sites-available/default-ssl.conf
+    SSLCertificateFile      /etc/ssl/certs/barbara-server.crt
+    SSLCertificateKeyFile   /etc/ssl/private/barbara-server.key
+    ```
+
   
 
 
@@ -109,21 +168,5 @@ sudo apt update
 
 
 
-
-
-
-
-
-Crear CA
-Crear CSR - peticion
-Firmado por CA - firmar peticion
-Configurar Apache - default-ssl
-
-
-
-
-## Autofirma
-
-## Instalación
 
 ## Comprobación
