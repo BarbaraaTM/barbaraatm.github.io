@@ -184,7 +184,7 @@ sudo apt update
 
 - Paso 5
 
-  Entramos al navegador y nos debería salir el siguiente mensaje:
+  Entramos al navegador, buscamos nuestro sitio nuevo con HTTPS y nos debería salir el siguiente mensaje:
   ![riesgo](img/riesgo.png)
   
 ## Importar el certificado
@@ -193,5 +193,8 @@ sudo apt update
   ![ca](img/ca.png)
 
 ## Comprobación
+
+  Si nosotros accedemos ahora a nuestro sitio nuevo con HTTPS, debería salir que la seguridad de la conexión es segura:
+   ![seguridad](img/seguridad.png)
 
 
