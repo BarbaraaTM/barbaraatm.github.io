@@ -185,11 +185,12 @@ sudo apt update
 - Paso 5
 
   Entramos al navegador y nos debería salir el siguiente mensaje:
-  
+  ![riesgo](img/riesgo.png)
   
 ## Importar el certificado
 
-Vamos a los ajustes del navegador que vayamos a utilizar, buscamos el apartado de certificados y pulsamos el botón 'Ver certificados'. Nos vamos a la ventana de 'Autoridades', y pulsamos el botón de 'Importar...'. Ahora debemos buscar el certificado de nuestra CA, se encuentra ubicado en ~/easy-rsa/pki/ca.crt. Una vez vaemos nuestra Auroridad Certificada en el listado, pulsamos el botón 'Aceptar'.
+  Vamos a los ajustes del navegador que vayamos a utilizar, buscamos el apartado de certificados y pulsamos el botón 'Ver certificados'. Nos vamos a la ventana de 'Autoridades', y pulsamos el botón de 'Importar...'.       Ahora debemos buscar el certificado de nuestra CA, se encuentra ubicado en ~/easy-rsa/pki/ca.crt. Una vez vaemos nuestra Auroridad Certificada en el listado, pulsamos el botón 'Aceptar'.
+  ![ca](img/ca.png)
 
 ## Comprobación
 
