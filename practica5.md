@@ -169,19 +169,28 @@ sudo apt update
 
 - Paso 3
 
-  Habilitamos el sitio
+  Habilitamos el sitio y el módulo de SSL:
+   ```bash
+    $ sudo a2ensite default-ssl.conf
+    $ sudo a2enmod ssl
+    ```
   
+- Paso 4
 
-  sudo a2ensite default-ssl.conf
+  Reiniciamos Apache:
+   ```bash
+    $ systemctl restart apache2
+    ```
 
-  sudo a2enmod ssl
+- Paso 5
 
-  systemctl restart apache2
+  Entramos al navegador y nos debería salir el siguiente mensaje:
+  
+  
+## Importar el certificado
 
-
-
-
-
-
+Vamos a los ajustes del navegador que vayamos a utilizar, buscamos el apartado de certificados y pulsamos el botón 'Ver certificados'. Nos vamos a la ventana de 'Autoridades', y pulsamos el botón de 'Importar...'. Ahora debemos buscar el certificado de nuestra CA, se encuentra ubicado en ~/easy-rsa/pki/ca.crt. Una vez vaemos nuestra Auroridad Certificada en el listado, pulsamos el botón 'Aceptar'.
 
 ## Comprobación
+
+
