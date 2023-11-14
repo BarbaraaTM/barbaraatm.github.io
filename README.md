@@ -9,3 +9,6 @@
 * [Práctica 4 - Redundancia es discos (RAID)](./practica4.md)
 
 * [Práctica 5 - Transmisiones web seguras (TLS)](./practica5.md)
+
+* [Práctica 6 - Hardening Apache](./practica6.md)
+
