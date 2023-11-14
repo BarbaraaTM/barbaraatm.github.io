@@ -146,7 +146,7 @@ sudo apt update
    ```bash
     $ ./easyrsa sign-req server barbara-server
     ```
-
+  
 ## Configurar Apache
 
 - Paso 1
@@ -158,10 +158,22 @@ sudo apt update
     SSLCertificateKeyFile   /etc/ssl/private/barbara-server.key
     ```
 
-  
+- Paso 2
 
+  Movemos el certificado y la clave privada al directorio que hemos indicado antes:
+  ```bash
+    $ cd ~/practice-csr
+    $ sudo cp barbara-server.crt /etc/ssl/certs/
+    $ sudo cp barbara-server.key /etc/ssl/private/
+    ```
 
+- Paso 3
 
+  sudo a2ensite default-ssl.conf
+
+  sudo a2enmod ssl
+
+  systemctl restart apache2
 
 
 
