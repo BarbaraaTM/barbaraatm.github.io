@@ -6,7 +6,9 @@ En nuestro futuro escenario, estaremos configurando un firewall en un servidor U
 
 ![diagrama](img/diagrama~2.png)
 
-## Ocultar la versión de Apache y la información del sistema operativo
+## Preparando el servidor principal
+
+### Configuración del netplan
 
 - Paso 1
 
@@ -16,3 +18,9 @@ En nuestro futuro escenario, estaremos configurando un firewall en un servidor U
          ServerTokens Prod
          ServerSignature Off
   ```
+
+### Configurando el servicio DHCP
+
+
+## Firewall
+
