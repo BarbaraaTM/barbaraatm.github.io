@@ -2,7 +2,7 @@
 
 ## Introducción
 
-En el extenso terreno de la ciberseguridad, resguardar la integridad y confidencialidad de la información en línea se convierte en una necesidad crucial, y ello implica la protección efectiva de los servidores web. Entre la diversidad de servidores web en funcionamiento, Apache destaca como uno de los más populares y extensamente utilizados. No obstante, esta popularidad también atrae una atención más aguda por parte de agentes malintencionados, subrayando la imperiosa necesidad de reforzar la seguridad de Apache mediante rigurosas prácticas de hardening.
+En nuestro futuro escenario, estaremos configurando un firewall en un servidor Ubuntu equipado con tres interfaces de red: `enp0s3` para NAT, que nos permitirá la conexión con Internet; `enp0s8`, destinada a nuestra red interna, donde planeamos albergar un punto de acceso (AP), un servidor LDAP y un cliente; y `enp0s9`, que expandiremos hacia una DMZ para situar un servidor web. Nuestro plan incluye la implementación de un proxy Squid que se encargará exclusivamente de filtrar el tráfico destinado a la red interna, con el objetivo de optimizar la seguridad y la gestión del tráfico mediante `iptables`, y al mismo tiempo mejorar la eficiencia de la navegación web, garantizando así un acceso controlado y seguro para nuestra infraestructura interna y los servicios expuestos en la DMZ.
 
 ## Ocultar la versión de Apache y la información del sistema operativo
 
