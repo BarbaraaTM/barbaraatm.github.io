@@ -12,3 +12,4 @@
 
 * [Práctica 6 - Hardening Apache](./practica6.md)
 
+* [Trabajo final SGD](./final.md)
