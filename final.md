@@ -378,9 +378,94 @@ Este apartado ya ha sido resuelto en el apartado [FW03 - Se permite el acceso al
 
 ### WEB02 - Sirve la página index.html
 
+- Paso 1
+
+  Modificamos el archivo /var/www/html/index.html y creamos la página web que queramos que se vea al acceder a nuestro sitio web:
+  ```bash
+   $  sudo nano /var/www/html/index.html
+      <html>
+      <head>
+        <title>Web ABA</title>
+        <meta cahrset="utf-8">
+      </head>
+      <body>
+        <h1>Ejercicio Final Seguridad</h1>
+        <p>Trabajo realizado por: Adrian Racuci, Bárbara Torres y Abderrahman Zrig.</p>
+      </body>
+      </html>
+  ```
+
+- Paso 2
+
+  Reiniciamos el servicio Apache para aplicar los cambios:
+  ```bash
+    $ sudo systemctl restart apache2
+  ```
+
 ### WEB03 - Sirve la documentación elaborada con un procesador de textos en formato PDF 
 
+- Paso 1
+
+  Creamos la carpeta /var/www/html/pdf:
+   ```bash
+    $ sudo mkdir /var/www/html/pdf
+  ```
+
+- Paso 2
+
+  Movemos el pdf con la documentación al directorio que hemos creado antes:
+   ```bash
+    $ sudo mv /(ubicacion del pdf) /var/www/html/pdf
+  ```
+
+- Paso 3
+
+  En el archivo de configuración /etc/apache2/apache2.conf, editamos la siguiente línea para poder dar acceso a Apache a documentos con la extensión .pdf:
+  ```bash
+  sudo nano /etc/apache2/apache2.conf
+     ...
+     AddType application/pdf .pdf
+     ...
+  ```
+
+- Paso 4
+
+  Reiniciamos el servicio Apache para aplicar los cambios:
+  ```bash
+    $ sudo systemctl restart apache2
+  ```
+
+- Paso 5
+
+  Para comprobarlo tenemos que ir a un cliente y en el navegador ponemos "http://172.16.81.10/pdf/TrabajoSGD.pdf", y nos descargará automáticamente el archivo pdf.
+
 ### WEB04-EX - Sirve la documentación elaborada en formato MarkDown como HTML 
+
+- Paso 1
+
+  Instalamos el paquete de MarkDown:
+  ```bash
+    $ sudo apt install markdown
+  ```
+
+- Paso 2
+
+  Movemos el md con la documentación al directorio que hemos creado antes:
+   ```bash
+    $ sudo mv /(ubicacion del md) /var/www/html/
+  ```
+
+- Paso 3
+
+  Ahora haremos uso de los servicios del paquete que hemos instalado antes para cambiar la extensión de md a html:
+   ```bash
+    $ cd /var/www/html/
+    $ sudo markdown TrabajoSGD.md > TrabajoSGD.html
+  ```
+
+- Paso 4
+
+  Para comprobarlo tenemos que ir a un cliente y en el navegador ponemos "http://172.16.81.10/TrabajoSGD.html".
 
 ### WEB05-EX - Se lleva a cabo una conexión segura mediante el protocolo HTTPS mediante un certificado firmado por una autoridad NO reconocida.
 
