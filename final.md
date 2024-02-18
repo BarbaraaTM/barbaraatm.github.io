@@ -89,7 +89,7 @@ Deberemos configurar la IP estática para cada una de las interfaces del servido
         ...
   ```
 
-  - Paso 5
+- Paso 5
  
     Vamos a reiniciar el servicio y consultar que su estado es active:
     ```bash
