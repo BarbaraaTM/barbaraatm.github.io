@@ -49,6 +49,53 @@ Deberemos configurar la IP estática para cada una de las interfaces del servido
 
 ### Configurando el servicio DHCP
 
+- Paso 1
+
+  Primero que nada actualizaremos los paquetes con las versiones más recientes:
+  ```bash
+   $ sudo apt-get update && sudo apt-get full-upgrade
+  ```
+
+- Paso 2
+
+  Ahora instalamos el servicio isc-dhcp-server:
+  ```bash
+   $ sudo apt-get install isc-dhcp-server
+  ```
+
+- Paso 3
+
+  Modificaremos el archivo /etc/default/isc-dhcp-server, y especificaremos la interfaz por la que atenderá a los clientes:
+  ```bash
+   $ sudo nano /etc/default/isc-dhcp-server
+        ...
+        INTERFACESv4="enp0s8"
+        ...
+  ```
+
+- Paso 4
+
+  Editamos el archivo /etc/dhcp/dhcpd.conf y configuraremos lo que el servidor ofrecerá a los clientes:
+  ```bash
+   $ sudo nano /etc/dhcp/dhcpd.conf
+        ...
+        subnet 172.16.82.0 netmask 255.255.255.0 {
+         range 172.16.82.50 172.16.82.90;
+         option routers 172.16.82.1;
+         option domain-name-servers 8.8.8.8;
+         default-lease-time 600;
+         max-lease-time 7200;
+        }
+        ...
+  ```
+
+  - Paso 5
+ 
+    Vamos a reiniciar el servicio y consultar que su estado es active:
+    ```bash
+     $ sudo systemctl restart isc-dhcp-server
+     $ sudo systemctl status isc-dhcp-server
+    ```
 
 ## Firewall
 
