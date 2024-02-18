@@ -138,3 +138,100 @@ Para poder facilitarnos el proceso de aplicar las reglas de iptables, instalarem
      $ sudo netfilter-persistent save
      $ sudo netfilter-persistent reload
   ```
+
+### FW01 - El acceso a la red interna está controlado por el firewall
+
+- Paso 1
+
+  Vamos crear una regla que rechace todo el tráfico forward:
+   ```bash
+     $ sudo iptables –P FORWARD DROP
+   ```
+
+- Paso 2
+
+  Vamos a aceptar el tráfico que salga de la DMZ para que pueda salir hacia afuera:
+   ```bash
+     $ sudo iptables -A FORWARD -i enp0s9 -o enp0s3 -j ACCEPT
+   ```
+
+- Paso 3
+
+  De lo que venga de fuera, solo podrá acceder a la DMZ y a la red interna los paquetes con estado ESTABLISHED o RELATED:
+   ```bash
+     $ sudo iptables –A FORWARD –i enp0s3 –o enp0s9 –m state –state ESTABLISHED.RELATED -j ACCEPT
+     $ sudo iptables –A FORWARD –i enp0s3 –o enp0s8 –m state –state ESTABLISHED.RELATED -j ACCEPT
+   ```
+
+- Paso 4
+
+  Para que se apliquen las reglas deberemos escribir los siguientes comandos:
+  ```bash
+     $ sudo netfilter-persistent save
+     $ sudo netfilter-persistent reload
+  ```
+
+### FW02 - Se permite la navegación desde la red interna 
+
+- Paso 1
+
+  Aceptamos el tráfico que salga de la red interna para que pueda salir hacia afuera con la siguiente regla:
+  ```bash
+     $ sudo iptables -A FORWARD -i enp0s8 -o enp0s3 -j ACCEPT
+   ```
+
+- Paso 2
+
+  Para que se aplique la regla deberemos escribir los siguientes comandos:
+  ```bash
+     $ sudo netfilter-persistent save
+     $ sudo netfilter-persistent reload
+  ```
+
+### FW03 - Se permite el acceso al servidor web desde exterior
+
+- Paso 1
+
+  Aceptamos los paquetes que vengan de fuera por los puertos 80 y 443:
+   ```bash
+     $ sudo iptables -A FORWARD -i enp0s3 -o enp0s9 –p tcp –m multiport –dports 80,443 -j ACCEPT
+   ```
+
+- Paso 2
+
+  Redirigimos todo el tráfico TCP que llega al equipo en los puertos 80 y 443 de la interfaz enp0s3 hacia la dirección IP 172.16.81.10.
+  ```bash
+     $ sudo iptables -t nat -A PREROUTING -i enp0s3 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination 172.16.81.10 
+   ```
+
+### FW04 - El acceso a la red interna no está permitido desde la DMZ 
+
+- Paso 1
+
+  Aceptamos el tráfico que salga de la red interna hacia la DMZ con la siguiente regla:
+   ```bash
+     $ sudo iptables -A FORWARD -i enp0s8 -o enp0s9 -j ACCEPT 
+   ```
+
+- Paso 2
+
+  De lo que venga de la DMZ, solo podrá acceder a la red interna los paquetes con estado ESTABLISHED o RELATED:
+   ```bash
+     $ sudo iptables –A FORWARD –i enp0s9 –o enp0s8 –m state –state ESTABLISHED.RELATED -j ACCEPT
+   ```
+
+- Paso 3
+
+  Rechazamos el resto de paquetes que puedan venir desde la DMZ:
+   ```bash
+     $ sudo iptables -A FORWARD -i enp0s9 -o enp0s8 -j DROP 
+   ```
+
+- Paso 4
+
+  Para que se apliquen las reglas deberemos escribir los siguientes comandos:
+  ```bash
+     $ sudo netfilter-persistent save
+     $ sudo netfilter-persistent reload
+  ```
+
