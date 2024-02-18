@@ -243,3 +243,58 @@ Para poder facilitarnos el proceso de aplicar las reglas de iptables, instalarem
      $ sudo netfilter-persistent reload
   ```
 
+
+## Proxy
+
+Estaremos utilizando en esta ocasión, el proxy Squid, es un servidor web proxy-caché con licencia GPL cuyo objetivo es funcionar como proxy de la red y también como zona caché para almacenar páginas web, entre otros.
+ ```bash
+     $ sudo apt-get install squid
+ ```
+
+### PROXY02 - La navegación a través del proxy se hace previa autenticación con los usuarios de LDAP.
+
+- Paso 1
+
+  Modificaremos el fichero /etc/squid/squid.conf, y escribiremos lo siguiente:
+   ```bash
+     $ sudo nano /etc/squid/squid.conf
+          ...
+          auth_param basic program /usr/lib/squid/basic_ldap_auth -b "ou=People,dc=aba,dc=com" -f "uid=%s -h 172.16.82.15"
+          auth_param basic children 5 startup=5 idle=1
+
+          auth_param basic credentialsttl 2 hours
+          acl ldap_users proxy_auth REQUIRED
+
+          http_access allow ldap_users
+          http_access allow all
+          ...
+   ```
+
+- Paso 2
+
+  Reiniciaremos el servicio squid para aplicar los cambios:
+   ```bash
+     $ sudo systemctl restart squid
+   ```
+
+### PROXY03 - Impide la navegación a webs específicas 
+
+- Paso 1
+
+  Modificaremos el fichero /etc/squid/squid.conf, y escribiremos lo siguiente:
+   ```bash
+     $ sudo nano /etc/squid/squid.conf
+          ...
+          acl sitios dstdomain .(sitio web especifico)
+
+          http_access deny sitios
+          http_access
+          ...
+   ```
+
+- Paso 2
+
+  Reiniciaremos el servicio squid para aplicar los cambios:
+   ```bash
+     $ sudo systemctl restart squid
+   ```
