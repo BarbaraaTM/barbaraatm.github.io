@@ -644,3 +644,55 @@ Este apartado ya ha sido resuelto en el apartado [FW03 - Se permite el acceso al
     $ systemctl restart apache2
     ```
 
+
+## Preparando el servidor LDAP de la red interna
+
+Deberemos configurar la IP estática para el servidor web, e instalaremos el servicio ldap.
+
+### Configuración del netplan
+
+- Paso 1
+
+  Modificamos el archivo /etc/netplan/00-installer-config.yaml y añadimos las siguientes lineas:
+   ```bash
+    $ sudo nano /etc/netplan/00-installer-config.yaml
+         network:
+           version: 2
+           renderer: networkd
+           ethernets:
+             enp0s3:
+               dhcp4: false
+               addresses:
+                - 172.16.82.15/24
+               routes:
+                - to: default
+                  via: 172.16.82.1
+               nameservers:
+                 addresses: [8.8.8.8]
+  ```
+
+- Paso 2
+
+  Aplicamos los cambios:
+  ```bash
+   $ sudo netplan apply
+  ```
+
+### Instalamos LDAP server
+
+- Paso 1
+ 
+  Instalamos los siguientes paquete:
+  ```bash
+   $ sudo apt-get install 
+  ```
+
+### LDAP01 - La gestión de LDAP se lleva a cabo mediante GUI
+
+### LDAP02 - El servidor RADIUS es capaz de autenticarse con los usuarios de LDAP
+
+### LDAP03 - El servidor PROXY es capaz de autenticarse con los usuarios del directorio
+
+Este apartado ya ha sido resuelto en el apartado [PROXY02 - La navegación a través del proxy se hace previa autenticación con los usuarios de LDAP](#proxy02---la-navegación-a-través-del-proxy-se-hace-previa-autenticación-con-los-usuarios-de-ldap).
+
+### LDAP04 - El directorio incluye usuario invitado
