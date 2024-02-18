@@ -97,5 +97,44 @@ Deberemos configurar la IP estática para cada una de las interfaces del servido
      $ sudo systemctl status isc-dhcp-server
     ```
 
+
 ## Firewall
 
+Para poder facilitarnos el proceso de aplicar las reglas de iptables, instalaremos el siguiente paquete:
+ ```bash
+     $ sudo apt-get install iptables-persistent
+ ```
+
+### FW00 - El Firewall realiza NAT correctamente
+
+- Paso 1
+
+  Primero activamos el enrutamiento modificando el archivo /etc/sysctl.conf y descomentando la siguiente línea:
+   ```bash
+     $ sudo nano /etc/sysctl.conf
+          ...
+          net.ipv4.ip_forward=1
+          ...
+   ```
+
+- Paso 2
+
+  Guardamos los cambios para que se inicie cada vez que el servidor se encienda:
+  ```bash
+     $ sudo sysctl -p 
+  ```
+
+- Paso 3
+
+  Agregamos la siguiente regla de iptables para que realice NAT:
+   ```bash
+     $ sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+   ```
+
+- Paso 4
+
+  Para que se aplique la regla deberemos escribir los siguientes comandos:
+  ```bash
+     $ sudo netfilter-persistent save
+     $ sudo netfilter-persistent reload
+  ```
