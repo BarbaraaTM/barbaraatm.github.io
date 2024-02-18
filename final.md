@@ -204,6 +204,14 @@ Para poder facilitarnos el proceso de aplicar las reglas de iptables, instalarem
      $ sudo iptables -t nat -A PREROUTING -i enp0s3 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination 172.16.81.10 
    ```
 
+- Paso 3
+
+  Para que se apliquen las reglas deberemos escribir los siguientes comandos:
+  ```bash
+     $ sudo netfilter-persistent save
+     $ sudo netfilter-persistent reload
+  ```
+
 ### FW04 - El acceso a la red interna no está permitido desde la DMZ 
 
 - Paso 1
