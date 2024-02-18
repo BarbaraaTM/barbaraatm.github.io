@@ -409,7 +409,7 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
 
   Restringimos el acceso para que solo el propietario pueda acceder a él:
   ```bash
-    $ sudo chmod 700 /home/barbara/easy-rsa
+    $ sudo chmod 700 /home/dmz/easy-rsa
     ```
 - Paso 5
 
@@ -428,8 +428,8 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
       set_var EASYRSA_REQ_COUNTRY    "España"
       set_var EASYRSA_REQ_PROVINCE   "Valencia"
       set_var EASYRSA_REQ_CITY       "Valencia"
-      set_var EASYRSA_REQ_ORG        "ASIR2SGD"
-      set_var EASYRSA_REQ_EMAIL      "bartormon@alu.edu.gva.es"
+      set_var EASYRSA_REQ_ORG        "ABA"
+      set_var EASYRSA_REQ_EMAIL      "aba@sgd.com"
       set_var EASYRSA_REQ_OU         "Community"
       set_var EASYRSA_ALGO           "ec"
       set_var EASYRSA_DIGEST         "sha512"
@@ -495,14 +495,14 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
   ```bash
     $ sudo mkdir ~/practice-csr
     $ sudo cd ~/practice-csr
-    $ sudo openssl genrsa -out barbara-server.key
+    $ sudo openssl genrsa -out aba-server.key
     ```
 
 - Paso 3
 
   Creamos la petición:
   ```bash
-    $ openssl req -new -key barbara-server.key -out barbara-server.req
+    $ openssl req -new -key aba-server.key -out aba-server.req
     ```
 
 ## Firmado por CA - Firmar petición
@@ -512,14 +512,14 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
   Nos movemos a la carpeta del CA e importamos la CSR:
    ```bash
     $ cd ~/easy-rsa
-    $ ./easyrsa import-req barbara-server.req barbara-server
+    $ ./easyrsa import-req aba-server.req aba-server
     ```
 
 - Paso 2
 
   Firmamos la CSR:
    ```bash
-    $ ./easyrsa sign-req server barbara-server
+    $ ./easyrsa sign-req server aba-server
     ```
   
 #### Configurar Apache
@@ -529,8 +529,8 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
   Modificamos el archivo /etc/apache2/sites-available/default-ssl.conf:
   ```bash
     $   sudo nano /etc/apache2/sites-available/default-ssl.conf
-    SSLCertificateFile      /etc/ssl/certs/barbara-server.crt
-    SSLCertificateKeyFile   /etc/ssl/private/barbara-server.key
+    SSLCertificateFile      /etc/ssl/certs/aba-server.crt
+    SSLCertificateKeyFile   /etc/ssl/private/aba-server.key
     ```
 
 - Paso 2
@@ -538,8 +538,8 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
   Movemos el certificado y la clave privada al directorio que hemos indicado antes:
   ```bash
     $ cd ~/practice-csr
-    $ sudo cp barbara-server.crt /etc/ssl/certs/
-    $ sudo cp barbara-server.key /etc/ssl/private/
+    $ sudo cp aba-server.crt /etc/ssl/certs/
+    $ sudo cp aba-server.key /etc/ssl/private/
     ```
 
 - Paso 3
