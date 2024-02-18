@@ -251,6 +251,35 @@ Estaremos utilizando en esta ocasión, el proxy Squid, es un servidor web proxy-
      $ sudo apt-get install squid
  ```
 
+### PROXY01 - Está configurado de forma transparente
+
+- Paso 1
+
+   Modificaremos el fichero /etc/squid/squid.conf, y escribiremos lo siguiente:
+   ```bash
+     $ sudo nano /etc/squid/squid.conf
+          ...
+          http_port 3128 transparent
+          ...
+   ```
+
+- Paso 2
+
+  Estableceremos la siguiente regla para redirigir el tráfico entrante del puerto 80 y 443 hacia el puerto 3128 que es el puerto escucha del proxy:
+  ```bash
+     $ sudo iptables -t nat -A PREROUTING -p tcp -m multiport --dports 80,443 -j REDIRECT --to-port 3128 
+  ```
+
+- Paso 3
+
+  Para que se aplique la regla deberemos escribir los siguientes comandos:
+  ```bash
+     $ sudo netfilter-persistent save
+     $ sudo netfilter-persistent reload
+  ```
+
+***ATENCIÓN: El proxy transparente no funciona de forma simultanea con el siguiente paso, solo podemos configurar uno a la vez en cada proxy, por lo que debemos elegir cual preferimos para nuestra configuración. En nustro caso, nos quedaremos con el siguiente paso y añadiremos de forma manual la IP de nuestro proxy en la configuración de nuestro navegador cliente.***
+
 ### PROXY02 - La navegación a través del proxy se hace previa autenticación con los usuarios de LDAP.
 
 - Paso 1
@@ -298,3 +327,4 @@ Estaremos utilizando en esta ocasión, el proxy Squid, es un servidor web proxy-
    ```bash
      $ sudo systemctl restart squid
    ```
+
