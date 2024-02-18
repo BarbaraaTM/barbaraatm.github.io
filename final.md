@@ -374,7 +374,7 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
 
 ### WEB01 - Es accesible desde la red externa 
 
-Este apartado ya ha sido resuelto en el apartado [FW03 - Se permite el acceso al servidor web desde exterior](#FW03 - Se permite el acceso al servidor web desde exterior).
+Este apartado ya ha sido resuelto en el apartado [FW03 - Se permite el acceso al servidor web desde exterior](#fw03---se-permite-el-acceso-al-servidor-web-desde-exterior).
 
 ### WEB02 - Sirve la página index.html
 
