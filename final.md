@@ -592,7 +592,7 @@ Este apartado ya ha sido resuelto en el apartado [FW03 - Se permite el acceso al
     $ openssl req -new -key aba-server.key -out aba-server.req
     ```
 
-## Firmado por CA - Firmar petición
+#### Firmado por CA - Firmar petición
 
 - Paso 1
 
@@ -689,9 +689,56 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
 
 ### LDAP01 - La gestión de LDAP se lleva a cabo mediante GUI
 
+- Paso 1
 
+Instalamos los paquetes necesarios para poder acceder al servidor LDAP mediante un entorno gráfico.
+
+```bash
+  sudo apt-get install sldap ldap-utils apache2 php libapache2-mod-php ldap-account-manager
+```
+
+- Paso 2
+
+  Accedemos a la página web para poder editar LDAP: http://172.16.82.15/lam.
+
+- Paso 3
+
+  Una vez estamos en la interfaz de entrada, le damos a "Edit server profiles" y entramos con la contraseña que viene por defecto.
+
+- Paso 4
+
+  En "Server settings", cambiaremos la configuración que sale pre-determinada a la que tenemos nosotros. En Server address: 172.16.82.15; y en Tree suffix: dc=aba,dc=com.
 
 ### LDAP02 - El servidor RADIUS es capaz de autenticarse con los usuarios de LDAP
+
+- Paso 1
+
+  Instalaremos el paquete RADIUS:
+  ```bash
+  sudo apt-get install freeradius
+  ```
+
+- Paso 2
+
+  Configuraremos el archivo /etc/freeradius/3.0/mods-available/ldap:
+  ```bash
+  sudo nano  /etc/freeradius/3.0/mods-available/ldap
+     ...
+     ldap {
+     server = "aba.com"
+     identity = "admin"
+     password = "admin"
+     ...
+    }
+    ...
+  ```
+
+- Paso 3
+
+  Reiniciamos el servicio para que se apliquen las modificaciones:
+  ```bash
+  sudo systemctl restart freeradius
+  ```
 
 ### LDAP03 - El servidor PROXY es capaz de autenticarse con los usuarios del directorio
 
