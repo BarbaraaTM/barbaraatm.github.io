@@ -813,3 +813,12 @@ Para poder cambiar la IP de nuestro AP, deberemos conectarlo a una máquina clie
   Si la configuración ha ido bien, al cambiar la IP de la máquina cliente en modo automático (DHCP), ya deberían volver a encontrarse el AP y la máquina cliente en la misma subred. Para comprobarlo, nos volvemos a          dirigir al navegador y escribimos: http://172.16.82.20. Si nos aparece la interfaz de log in, todo ha ido correctamente, sino encuentra la IP deberás reiniciar el AP y volver a empezar los pasos.
 
 ### RAD-AP02 - Los clientes inalámbricos son capaces de autenticarse en el directorio mediante el protocolo RADIUS
+
+- Paso 1
+
+  Nos dirigimos a la pestaña que pone Wireless, y dentro de ese menú seleccionamos Radius, donde vamos a configurar el servicio. Cambiairemos los siguientes aspectos: MAC Radius Client: Enable; Radius Auth Server           Address: 172.16.82.15; Radius Auth Server Port: 1812; Password Format: Shared Key; Radius Auth shared Secret: admin.
+
+- Paso 2
+
+ Para que se puedan conectar debemos poner el SSID y configurar el tipo de seguridad (por ejemplo, WPA2-Enterprise) en las conexiones de red del cliente. Una vez puesto el SSID, pedirá el nombre de usuario y la            contraseña. Configurando eso se podrá conectar a nuestra red y así el usuario puede acceder a los recursos de nuestra red.
+
