@@ -422,7 +422,7 @@ Este apartado ya ha sido resuelto en el apartado [FW03 - Se permite el acceso al
 
   En el archivo de configuración /etc/apache2/apache2.conf, editamos la siguiente línea para poder dar acceso a Apache a documentos con la extensión .pdf:
   ```bash
-  sudo nano /etc/apache2/apache2.conf
+   $ sudo nano /etc/apache2/apache2.conf
      ...
      AddType application/pdf .pdf
      ...
@@ -694,7 +694,7 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
 Instalamos los paquetes necesarios para poder acceder al servidor LDAP mediante un entorno gráfico.
 
 ```bash
-  sudo apt-get install sldap ldap-utils apache2 php libapache2-mod-php ldap-account-manager
+  $ sudo apt-get install sldap ldap-utils apache2 php libapache2-mod-php ldap-account-manager
 ```
 
 - Paso 2
@@ -715,22 +715,22 @@ Instalamos los paquetes necesarios para poder acceder al servidor LDAP mediante 
 
   Instalaremos el paquete RADIUS:
   ```bash
-  sudo apt-get install freeradius
+  $ sudo apt-get install freeradius
   ```
 
 - Paso 2
 
   Configuraremos el archivo /etc/freeradius/3.0/mods-available/ldap:
   ```bash
-  sudo nano  /etc/freeradius/3.0/mods-available/ldap
-     ...
-     ldap {
-     server = "aba.com"
-     identity = "admin"
-     password = "admin"
-     ...
-    }
-    ...
+  $ sudo nano  /etc/freeradius/3.0/mods-available/ldap
+       ...
+       ldap {
+       server = "aba.com"
+       identity = "admin"
+       password = "admin"
+       ...
+      }
+      ...
   ```
 
 - Paso 3
@@ -745,6 +745,50 @@ Instalamos los paquetes necesarios para poder acceder al servidor LDAP mediante 
 Este apartado ya ha sido resuelto en el apartado [PROXY02 - La navegación a través del proxy se hace previa autenticación con los usuarios de LDAP](#proxy02---la-navegación-a-través-del-proxy-se-hace-previa-autenticación-con-los-usuarios-de-ldap).
 
 ### LDAP04 - El directorio incluye usuario invitado
+
+- Paso 1
+
+  Creamos un usuario llamado invitado en un fichero ldif:
+
+  ```bash
+  sudo nano invitado.ldif
+     dn: uid=invitado,ou=usuarios,dc=aba,dc=ldap
+     objectClass: top
+     objectClass: person
+     objectClass: organizationalPerson
+     objectClass: inetOrgPerson
+     uid: invitado
+     cn: Usuario Invitado
+     sn: Invitado
+     givenName: Usuario
+     userPassword: passwd
+  ```
+
+- Paso 2
+
+  Añadimos el usuario al directorio y reiniciamos ldap:
+
+  ```bash
+  $ ldapadd -x -D "cn=admin,dc=aba,dc=com" -W -f invitado.ldif
+  $ sudo systemctl restart sldap
+  ```
+
+- Paso 3
+
+  Nos movemos al proxy. Añadimos la regla en el squid para que podamos autenticarnos con invitado, en el archivo de /etc/squid/squid.conf:
+  ```bash
+  $ sudo nano /etc/squid/squid.conf
+       ...
+       auth_param basic program /usr/lib/squid3/basic_ldap_auth -v 3 -b "dc=aba,dc=ldap" -D "cn=admin,dc=aba,dc=ldap" -W /path/to/passwordfile -f "(&(objectClass=posixAccount)(!(uid=invitado)))"
+       ...
+  ```
+
+- Paso 4
+
+  Reiniciamos el servicio para aplicar los cambios:
+  ```bash
+  $ sudo service squid restart
+  ```
 
 ## Preparando el AP de la red interna
 
