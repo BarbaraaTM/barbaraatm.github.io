@@ -751,17 +751,17 @@ Este apartado ya ha sido resuelto en el apartado [PROXY02 - La navegación a tra
   Creamos un usuario llamado invitado en un fichero ldif:
 
   ```bash
-  sudo nano invitado.ldif
-     dn: uid=invitado,ou=usuarios,dc=aba,dc=ldap
-     objectClass: top
-     objectClass: person
-     objectClass: organizationalPerson
-     objectClass: inetOrgPerson
-     uid: invitado
-     cn: Usuario Invitado
-     sn: Invitado
-     givenName: Usuario
-     userPassword: passwd
+  $ sudo nano invitado.ldif
+       dn: uid=invitado,ou=usuarios,dc=aba,dc=com
+       objectClass: top
+       objectClass: person
+       objectClass: organizationalPerson
+       objectClass: inetOrgPerson
+       uid: invitado
+       cn: Usuario Invitado
+       sn: Invitado
+       givenName: Usuario
+       userPassword: passwd
   ```
 
 - Paso 2
@@ -779,7 +779,7 @@ Este apartado ya ha sido resuelto en el apartado [PROXY02 - La navegación a tra
   ```bash
   $ sudo nano /etc/squid/squid.conf
        ...
-       auth_param basic program /usr/lib/squid3/basic_ldap_auth -v 3 -b "dc=aba,dc=ldap" -D "cn=admin,dc=aba,dc=ldap" -W /path/to/passwordfile -f "(&(objectClass=posixAccount)(!(uid=invitado)))"
+       auth_param basic program /usr/lib/squid3/basic_ldap_auth -v 3 -b "dc=aba,dc=com" -D "cn=admin,dc=aba,dc=com" -W /path/to/passwordfile -f "(&(objectClass=posixAccount)(!(uid=invitado)))"
        ...
   ```
 
