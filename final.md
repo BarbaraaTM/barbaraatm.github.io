@@ -1,4 +1,5 @@
 # Trabajo Final SGD
+_Trabajo realizado por: Bárbara Torres, Adrian Racuci y Abderrahman Zrig_
 
 ## Introducción
 
