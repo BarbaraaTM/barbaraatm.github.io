@@ -720,3 +720,5 @@ Para poder cambiar la IP de nuestro AP, deberemos conectarlo a una máquina clie
 - Paso 4
 
   Si la configuración ha ido bien, al cambiar la IP de la máquina cliente en modo automático (DHCP), ya deberían volver a encontrarse el AP y la máquina cliente en la misma subred. Para comprobarlo, nos volvemos a          dirigir al navegador y escribimos: http://172.16.82.20. Si nos aparece la interfaz de log in, todo ha ido correctamente, sino encuentra la IP deberás reiniciar el AP y volver a empezar los pasos.
+
+### RAD-AP02 - Los clientes inalámbricos son capaces de autenticarse en el directorio mediante el protocolo RADIUS
