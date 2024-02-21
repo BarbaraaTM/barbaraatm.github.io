@@ -820,5 +820,5 @@ Para poder cambiar la IP de nuestro AP, deberemos conectarlo a una máquina clie
 
 - Paso 2
 
- Para que se puedan conectar debemos poner el SSID y configurar el tipo de seguridad (por ejemplo, WPA2-Enterprise) en las conexiones de red del cliente. Una vez puesto el SSID, pedirá el nombre de usuario y la            contraseña. Configurando eso se podrá conectar a nuestra red y así el usuario puede acceder a los recursos de nuestra red.
+  Para que se puedan conectar debemos poner el SSID y configurar el tipo de seguridad (por ejemplo, WPA2-Enterprise) en las conexiones de red del cliente. Una vez puesto el SSID, pedirá el nombre de usuario y la            contraseña. Configurando eso se podrá conectar a nuestra red y así el usuario puede acceder a los recursos de nuestra red.
 
