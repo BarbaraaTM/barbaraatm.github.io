@@ -689,6 +689,8 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
 
 ### LDAP01 - La gestión de LDAP se lleva a cabo mediante GUI
 
+
+
 ### LDAP02 - El servidor RADIUS es capaz de autenticarse con los usuarios de LDAP
 
 ### LDAP03 - El servidor PROXY es capaz de autenticarse con los usuarios del directorio
@@ -696,3 +698,25 @@ Deberemos configurar la IP estática para el servidor web, e instalaremos el ser
 Este apartado ya ha sido resuelto en el apartado [PROXY02 - La navegación a través del proxy se hace previa autenticación con los usuarios de LDAP](#proxy02---la-navegación-a-través-del-proxy-se-hace-previa-autenticación-con-los-usuarios-de-ldap).
 
 ### LDAP04 - El directorio incluye usuario invitado
+
+## Preparando el AP de la red interna
+
+Para poder cambiar la IP de nuestro AP, deberemos conectarlo a una máquina cliente que se encuentre en la misma subred que la del AP. Si el AP es nuevo, deberás buscar, según su modelo, cuál es la IP predeterminada de ese AP. En nuestro caso, la IP de fábrica es 192.168.1.1, por lo que nuestra máquina cliente deberá tener una IP de la subred 192.168.1.0/24. Si la IP por defecto no funciona, deberás reiniciar el AP.
+
+### RAD-AP01 - El punto de acceso está configurado de forma correcta
+
+- Paso 1
+
+  Nos dirigimos a la máquina cliente y escribimos en el navegador: http://192.168.1.1.
+
+- Paso 2
+
+  Si la conectividad es la adecuada, pedirá que te autentiques. Busca, según el modelo del AP, su contraseña predeterminada.
+
+- Paso 3
+
+  Una vez autenticados, veremos una gran interfaz con varias pestañas. En este caso, nos quedamos con la página predeterminada, en la cual podemos cambiar la IP de nuestro AP. En nuestro caso vamos a indicarle la           siguiente IP: 172.16.82.20; la siguiente máscara de red: 255.255.255.0; y el gateway: 172.16.82.1. Aplicamos cambios.
+
+- Paso 4
+
+  Si la configuración ha ido bien, al cambiar la IP de la máquina cliente en modo automático (DHCP), ya deberían volver a encontrarse el AP y la máquina cliente en la misma subred. Para comprobarlo, nos volvemos a          dirigir al navegador y escribimos: http://172.16.82.20. Si nos aparece la interfaz de log in, todo ha ido correctamente, sino encuentra la IP deberás reiniciar el AP y volver a empezar los pasos.
